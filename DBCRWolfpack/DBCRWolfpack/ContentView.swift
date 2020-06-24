@@ -13,6 +13,7 @@ import WebKit
 import MessageUI
 import UIKit
 import Combine
+import SafariServices
 
 class requestTranscript: ObservableObject, Codable {
     enum CodingKeys: CodingKey {
@@ -205,6 +206,8 @@ struct ContentView: View {
     @State var isShowingMailView = false
     @State var alertNoMail = false
     
+    @State private var isPresented: Bool = false
+    
     //Tag Colors
     static let colors: [String: Color] = ["Full-Time": .yellow, "Part-Time": .blue, "Internship": .red, "Networking": .purple, "Professional Development": .green, "Career Fair": .orange]
     static let colors1: [String: Color] = ["College Visit": .blue, "DBCR": .yellow, "Volunteer": .green, "Professional Development": .red, "Religious": .orange]
@@ -217,8 +220,8 @@ struct ContentView: View {
         // To remove all separators including the actual ones:
         UITableView.appearance().separatorStyle = .none
         
-  //      UITableView.appearance().allowsSelection = false
-     //   UITableViewCell.appearance().selectionStyle = .none
+        UITableView.appearance().allowsSelection = false
+        UITableViewCell.appearance().selectionStyle = .none
     }
     
     var body: some View {
@@ -283,9 +286,6 @@ struct ContentView: View {
                 List(){
                     SearchBar(text: $searchText1)
                     ForEach(list.datas.reversed().filter({ self.searchText1.isEmpty ? true : $0.company.lowercased().contains(searchText1.lowercased())})) { i in
-                    NavigationLink(destination:
-                        webView(url: i.website)
-                            .navigationBarTitle("", displayMode: .inline)){
                                 VStack(alignment: .leading){
                                     Text(i.date)
                                     .font(.system(size:10))
@@ -310,12 +310,17 @@ struct ContentView: View {
                                     }.fixedSize(horizontal: false, vertical: true)
                             
                                 }.padding(.vertical, 15)
+                                .sheet(isPresented: self.$isPresented) {
+                                    SafariView(url: URL(string: i.website)!)
+                                }
+                                .onTapGesture {
+                                    self.isPresented.toggle()
+                        }
                             }.padding(.vertical, 15)
                             .padding(.horizontal, 10)
                             .background(Color(UIColor.systemGray6))
                             .clipShape(RoundedRectangle(cornerRadius:10, style:.continuous))
                             .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.2), radius: 5, y: 2)
-                    }.padding(.vertical, 2)
                 }.navigationBarTitle("Career Opportunities")
                 
 
@@ -495,34 +500,52 @@ struct ContentView: View {
                 Text("Forms")
             }.tag(3)
            
-//            NavigationView {
-//                Form {
-//                    ZStack{
-//                        VStack{
-//
-//                            Button(action: {
-//                                self.isShowingMailView.toggle()
-//                            }) {
-//                                Text("Contact your Alumni Outreach Coordinator")
-//                            }
-//                            .onTapGesture {
-//                                MFMailComposeViewController.canSendMail() ? self.isShowingMailView.toggle() : self.alertNoMail.toggle()
-//                            }
-//                            .sheet(isPresented: $isShowingMailView) {
-//                                MailView(result: self.$result)
-//                            }
-//                            .alert(isPresented: self.$alertNoMail) {
-//                                Alert(title: Text("Please set up mail account in order to send email."), message: Text("Settings > Passwords & Accounts"))
-//                            }
-//                        }
-//                    }
-//                }.navigationBarTitle("Settings")
-//            }
-//            .navigationViewStyle(StackNavigationViewStyle())
-//            .tabItem {
-//                Image(systemName: "gear")
-//                Text("Settings")
-//            }.tag(4)
+            NavigationView {
+                Form {
+                    Section(header: Text("Contact")){
+                        
+                        ZStack{
+                            VStack{
+
+                                Button(action: {
+                                    self.isShowingMailView.toggle()
+                                }) {
+                                    Text("Email your Alumni Outreach Coordinator")
+                                }
+                                .onTapGesture {
+                                    MFMailComposeViewController.canSendMail() ? self.isShowingMailView.toggle() : self.alertNoMail.toggle()
+                                }
+                                .sheet(isPresented: $isShowingMailView) {
+                                    MailView(result: self.$result)
+                                }
+                                .alert(isPresented: self.$alertNoMail) {
+                                    Alert(title: Text("Please set up mail account in order to send email."), message: Text("Settings > Passwords & Accounts"))
+                                }
+                            }
+                        }
+                    }
+                    
+                    Section(header: Text("Social")){
+                        FormRowLinkView(icon: "person.crop.square", color: Color.pink, text: "Instagram", link: "https://www.instagram.com/dbcrgrads/")
+                        FormRowLinkView(icon: "person.crop.square", color: Color.blue, text: "Facebook", link: "https://www.facebook.com/dbcrgrads")
+                    }
+                    
+                    
+                    Section(header: Text("About")) {
+                        FormRowStaticView(icon: "gear", firstText: "Application", secondText: "Wolfpack Howl")
+                        FormRowStaticView(icon: "keyboard", firstText: "Developer", secondText: "Christopher Castillo")
+                        FormRowStaticView(icon: "flag", firstText: "Version", secondText: "1.0.0")
+                    }
+                }.navigationBarTitle("Settings")
+                .listStyle(GroupedListStyle())
+                .environment(\.horizontalSizeClass, .regular)
+                    
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tabItem {
+                Image(systemName: "gear")
+                Text("Settings")
+            }.tag(4)
             
         }.accentColor(.yellow)
     }
@@ -721,6 +744,57 @@ struct webView : UIViewRepresentable {
     
     func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<webView>) {
         
+    }
+}
+
+final class CustomSafariViewController: UIViewController {
+    var url: URL? {
+        didSet {
+            // when url changes, reset the safari child view controller
+            configureChildViewController()
+        }
+    }
+
+    private var safariViewController: SFSafariViewController?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureChildViewController()
+    }
+
+    private func configureChildViewController() {
+        // Remove the previous safari child view controller if not nil
+        if let safariViewController = safariViewController {
+            safariViewController.willMove(toParent: self)
+            safariViewController.view.removeFromSuperview()
+            safariViewController.removeFromParent()
+            self.safariViewController = nil
+        }
+
+        guard let url = url else { return }
+
+        // Create a new safari child view controller with the url
+        let newSafariViewController = SFSafariViewController(url: url)
+        addChild(newSafariViewController)
+        newSafariViewController.view.frame = view.frame
+        view.addSubview(newSafariViewController.view)
+        newSafariViewController.didMove(toParent: self)
+        self.safariViewController = newSafariViewController
+    }
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = CustomSafariViewController
+
+    var url: URL?
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> CustomSafariViewController {
+        return CustomSafariViewController()
+    }
+
+    func updateUIViewController(_ safariViewController: CustomSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
+        safariViewController.url = url
     }
 }
 
