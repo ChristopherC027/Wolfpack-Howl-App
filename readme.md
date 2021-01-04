@@ -6,7 +6,6 @@ Wolfpack Howl is an app created for Don Bosco Cristo Rey High School and Corpora
 As the Don Bosco Cristo Rey Alumni Outreach Coordinator, I wanted to create an app that allows the Alumni Outreach Coordinator to more easily curate events, news, programs, and articles relevant to DBCR alumni. Additionally, I wanted to make it easier for alumni to submit transcript requests and life updates directly to the Alumni Outreach Coordinator.
 
 ## Screenshots
-![alt text](https://raw.githubusercontent.com/ChristopherC027/Wolfpack-Howl/master/wh1.png)![alt text](https://raw.githubusercontent.com/ChristopherC027/Wolfpack-Howl/master/wh2.png)
 
 ## Features
 <b>Backend features</b>
