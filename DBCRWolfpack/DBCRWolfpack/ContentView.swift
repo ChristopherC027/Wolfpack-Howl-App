@@ -14,6 +14,7 @@ import MessageUI
 import UIKit
 import Combine
 import SafariServices
+import BetterSafariView
 
 class requestTranscript: ObservableObject, Codable {
     enum CodingKeys: CodingKey {
@@ -207,6 +208,7 @@ struct ContentView: View {
     @State var alertNoMail = false
     
     @State private var isPresented: Bool = false
+    @State private var presentingSafariView = false
     
     //Tag Colors
     static let colors: [String: Color] = ["Full-Time": .yellow, "Part-Time": .blue, "Internship": .red, "Networking": .purple, "Professional Development": .green, "Career Fair": .orange]
@@ -310,12 +312,9 @@ struct ContentView: View {
                                     }.fixedSize(horizontal: false, vertical: true)
                             
                                 }.padding(.vertical, 15)
-                                .sheet(isPresented: self.$isPresented) {
-                                    SafariView(url: URL(string: i.website)!)
-                                }
                                 .onTapGesture {
-                                    self.isPresented.toggle()
-                        }
+                                    self.presentingSafariView.toggle()
+                                }
                             }.padding(.vertical, 15)
                             .padding(.horizontal, 10)
                             .background(Color(UIColor.systemGray6))

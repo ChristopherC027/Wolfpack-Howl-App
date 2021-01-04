@@ -18,6 +18,7 @@
 		6E812FA7247F774000EF07AD /* FormRowStaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E812FA6247F774000EF07AD /* FormRowStaticView.swift */; };
 		6E812FAA247F7B1300EF07AD /* FormRowLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E812FA9247F7B1300EF07AD /* FormRowLinkView.swift */; };
 		6EBF22DE24567F8400A4F848 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBF22DD24567F8400A4F848 /* SearchBar.swift */; };
+		6EDA42C324F028BE0025BA52 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 6EDA42C224F028BE0025BA52 /* BetterSafariView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E5C09B1246233950076C171 /* SDWebImageSwiftUI in Frameworks */,
+				6EDA42C324F028BE0025BA52 /* BetterSafariView in Frameworks */,
 				6E5FA50323F0AAA200B3CE1F /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +125,7 @@
 			packageProductDependencies = (
 				6E5FA50223F0AAA200B3CE1F /* SwiftyJSON */,
 				6E5C09B0246233950076C171 /* SDWebImageSwiftUI */,
+				6EDA42C224F028BE0025BA52 /* BetterSafariView */,
 			);
 			productName = DBCRWolfpack;
 			productReference = 6E5FA4EA23F0AA3C00B3CE1F /* DBCRWolfpack.app */;
@@ -157,6 +160,7 @@
 				6E5FA50423F0AAF400B3CE1F /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				6EF22237244390A5005E89B5 /* XCRemoteSwiftPackageReference "SwiftUI-PullToRefresh" */,
 				6EF2223A244398B9005E89B5 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				6EDA42BF24F025660025BA52 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 			);
 			productRefGroup = 6E5FA4EB23F0AA3C00B3CE1F /* Products */;
 			projectDirPath = "";
@@ -406,6 +410,14 @@
 				minimumVersion = 0.10.3;
 			};
 		};
+		6EDA42BF24F025660025BA52 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		6EF22237244390A5005E89B5 /* XCRemoteSwiftPackageReference "SwiftUI-PullToRefresh" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/SwiftUI-PullToRefresh";
@@ -434,6 +446,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6E5FA50123F0AAA200B3CE1F /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		6EDA42C224F028BE0025BA52 /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EDA42BF24F025660025BA52 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

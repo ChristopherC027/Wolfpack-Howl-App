@@ -6,5 +6,5 @@ class ArticleSerializer(serializers.ModelSerializer):
     post_date = serializers.DateField(format="%m-%d-%Y")
 
     class Meta:
-        fields = ('name', 'description', 'post_date', 'tag', 'website')
+        fields = ('id', 'name', 'description', 'post_date', 'tag', 'website')
         model = Article
