@@ -11,9 +11,9 @@ As the Don Bosco Cristo Rey Alumni Outreach Coordinator, I wanted to create an a
 ![1242x2688bb-3](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/ac9a2b26-28f8-4ea4-b2ed-7a67929bf448)
 ![1242x2688bb-4](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/41331337-2d7c-4308-b74f-4ee1da0213)
 ![1242x2688bb-5](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/fe46609e-8e09-4446-b171-51949906c538)
-5b)
 ![1242x2688bb-6](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/0369e51f-b9ef-4866-aa2a-ea7a13993260)
 ![1242x2688bb-7](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/ebd14136-4f94-4aac-ba07-228c8b374ee1)
+![1242x2688bb-8](https://github.com/ChristopherC027/Wolfpack-Howl-App/assets/20056248/24d9e6be-1045-41ec-ab58-b1d3622b4788)
 
 ## Features
 <b>Backend features</b>
