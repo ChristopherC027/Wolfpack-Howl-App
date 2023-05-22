@@ -17,7 +17,10 @@ As the Don Bosco Cristo Rey Alumni Outreach Coordinator, I wanted to create an a
 - Integrated AWS (S3) to store media files. 
 
 <b>iOS App features</b>
-- Search Bar functionality to search through posts, career opportunities, and events. 
+- 🔍 Search Bar functionality to search through posts, career opportunities, and events.
+- 📑 Bookmark functionality to save and come back to important posts, career opportunities, and events.
+- 🌐 WebView integration to navigate to websites associated with posts, career opportunities, and events. 
+- ✉️ MailView integration reach the Alumni Outreach Coordinator directly via email. 
 - GET and POST HTTP requests to and from the dbcrapi.
 - UI created with Apple's newest declarative framework, SwiftUI.
 
